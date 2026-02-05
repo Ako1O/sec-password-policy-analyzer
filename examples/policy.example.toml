@@ -1,0 +1,17 @@
+[policy]
+min_length = 12
+max_length = 128
+
+require_upper = false
+require_lower = false
+require_digit = false
+require_symbol = false
+
+allow_spaces = true
+allow_unicode = true
+normalize_unicode_nfc = false
+
+local_blocklist_path = "data/common_passwords_sample.txt"
+check_pwned_passwords = false
+
+forbid_context_words = true
