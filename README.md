@@ -10,13 +10,13 @@ and provides clear, structured feedback when a password fails validation.
 
 ## Features
 
-- ✅ Minimum and maximum length checks
-- ✅ Optional character requirements (upper/lower/digit/symbol)
-- ✅ Detects weak passwords using a local blocklist
-- ✅ Optional breach check via HIBP (k-anonymity range API)
-- ✅ Context checks (prevents passwords containing username/company words)
-- ✅ Clear error messages + suggestions
-- ✅ TOML-based policy configuration
+-  Minimum and maximum length checks
+-  Optional character requirements (upper/lower/digit/symbol)
+-  Detects weak passwords using a local blocklist
+-  Optional breach check via HIBP (k-anonymity range API)
+-  Context checks (prevents passwords containing username/company words)
+-  Clear error messages + suggestions
+-  TOML-based policy configuration
 
 ---
 
