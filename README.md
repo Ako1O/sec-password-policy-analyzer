@@ -1,3 +1,4 @@
+![CI](../../actions/workflows/ci.yml/badge.svg)
 # sec-password-policy-analyzer
 
 Educational Python CLI tool that evaluates passwords against a configurable policy.
