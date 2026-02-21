@@ -72,7 +72,9 @@ def _check_length(password: str, policy: PasswordPolicy) -> list[PolicyViolation
             PolicyViolation(
                 code="length_too_long",
                 message=f"Password must be at most {policy.max_length} characters.",
-                help_text="Rejecting (not truncating) avoids surprising login bugs and performance issues.",
+                help_text=(
+                    "Rejecting (not truncating) avoids surprising login bugs and performance issues."
+                ),
             )
         )
 
@@ -87,7 +89,9 @@ def _check_character_rules(password: str, policy: PasswordPolicy) -> list[Policy
             PolicyViolation(
                 code="spaces_not_allowed",
                 message="Spaces are not allowed by this policy.",
-                help_text="If you control the system, allowing spaces is generally more user-friendly.",
+                help_text=(
+                    "If you control the system, allowing spaces is generally more user-friendly."
+                ),
             )
         )
 
@@ -100,7 +104,9 @@ def _check_character_rules(password: str, policy: PasswordPolicy) -> list[Policy
                     PolicyViolation(
                         code="unicode_not_allowed",
                         message="Unicode characters are not allowed by this policy.",
-                        help_text="If possible, allow Unicode to support better passphrases and international users.",
+                        help_text=(
+                            "If possible, allow Unicode to support better passphrases and international users."
+                        ),
                     )
                 )
                 break
@@ -170,7 +176,9 @@ def _check_blocklist(password: str, policy: PasswordPolicy) -> list[PolicyViolat
             PolicyViolation(
                 code="blocklisted_password",
                 message="This password is in a common/weak password list.",
-                help_text="Pick something unique—avoid small edits like adding '1!' to a common word.",
+                help_text=(
+                    "Pick something unique—avoid small edits like adding '1!' to a common word."
+                ),
             )
         ]
 
@@ -199,7 +207,9 @@ def _check_pwned(password: str, policy: PasswordPolicy) -> list[PolicyViolation]
             PolicyViolation(
                 code="pwned_password",
                 message="This password appears in known breach data.",
-                help_text=f"Seen {match.breach_count} times in breaches. Choose a different password.",
+                help_text=(
+                    f"Seen {match.breach_count} times in breaches. Choose a different password."
+                ),
             )
         ]
 

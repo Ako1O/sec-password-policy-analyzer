@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import tomllib
 from dataclasses import asdict
 from pathlib import Path
-import tomllib
 
 from .policy import PasswordPolicy
 
