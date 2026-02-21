@@ -157,3 +157,20 @@ pytest
 - This tool does not manage users, login sessions, hashing, or authentication storage.
 - The breach check depends on network availability and is optional.
 - Detection rules are intentionally transparent for learning (not for adversarial environments).
+- 
+
+---
+## Why content-based checks matter
+
+- Many real systems reject weak passwords at creation time to reduce account takeover risk.
+- This tool demonstrates common policy checks and their tradeoffs (length-first vs strict composition rules).
+
+---
+## Development
+
+```bash
+pip install -e . pytest pytest-cov ruff
+ruff check .
+ruff format .
+pytest --cov=password_policy_analyzer --cov-report=term-missing
+```
