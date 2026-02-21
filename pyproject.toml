@@ -1,14 +1,31 @@
 [project]
-name = "password-policy-analyzer"
+name = "sec-password-policy-analyzer"
 version = "0.1.0"
 description = "Educational tool to analyze passwords against configurable security policies."
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "MIT" }
-authors = [{ name = "Your Name" }]
+license = "MIT"
+authors = [{ name = "Daniil Khersonets" }]
 
 [project.scripts]
 password-policy-analyzer = "password_policy_analyzer.cli:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["password_policy_analyzer"]
+
+[tool.setuptools.package-data]
+password_policy_analyzer = ["py.typed"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

@@ -215,7 +215,9 @@ def _general_suggestions(password: str, policy: PasswordPolicy) -> list[str]:
         tips.append("Consider using a longer passphrase (14+ characters) for better security.")
 
     if password.lower() == password or password.upper() == password:
-        tips.append("Mixing words or using a multi-word passphrase can improve strength and memorability.")
+        tips.append(
+            "Mixing words or using a multi-word passphrase can improve strength and memorability."
+        )
 
     tips.append("Use unique passwords per site (a password manager helps).")
     return tips
