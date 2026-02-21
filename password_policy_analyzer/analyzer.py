@@ -73,7 +73,8 @@ def _check_length(password: str, policy: PasswordPolicy) -> list[PolicyViolation
                 code="length_too_long",
                 message=f"Password must be at most {policy.max_length} characters.",
                 help_text=(
-                    "Rejecting (not truncating) avoids surprising login bugs and performance issues."
+                    "Rejecting (not truncating) avoids surprising login bugs "
+                    "and performance issues."
                 ),
             )
         )
@@ -105,7 +106,8 @@ def _check_character_rules(password: str, policy: PasswordPolicy) -> list[Policy
                         code="unicode_not_allowed",
                         message="Unicode characters are not allowed by this policy.",
                         help_text=(
-                            "If possible, allow Unicode to support better passphrases and international users."
+                            "If possible, allow Unicode to support better passphrases "
+                            "and international users."
                         ),
                     )
                 )
