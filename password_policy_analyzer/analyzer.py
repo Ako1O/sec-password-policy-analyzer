@@ -1,13 +1,11 @@
 from __future__ import annotations
 
-from dataclasses import replace
 import string
 import unicodedata
 from pathlib import Path
 
-from .policy import PasswordPolicy, PolicyViolation, PasswordAnalysis
-from .weak_passwords import load_blocklist, check_pwned_passwords_k_anonymity
-
+from .policy import PasswordAnalysis, PasswordPolicy, PolicyViolation
+from .weak_passwords import check_pwned_passwords_k_anonymity, load_blocklist
 
 _SYMBOLS = set(string.punctuation)
 
