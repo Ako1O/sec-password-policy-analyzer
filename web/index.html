@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Password Policy Analyzer — Live Demo</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="page-header">
+      <h1>Password Policy Analyzer</h1>
+      <p class="subtitle">
+        Type a password below to see how it would be judged against a configurable company
+        password policy. Everything runs locally in this browser; nothing is sent anywhere.
+      </p>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>Try a password</h2>
+
+        <label class="field-label" for="password-input">Password</label>
+        <div class="password-row">
+          <input
+            id="password-input"
+            type="password"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Type a password to test…"
+          />
+          <button id="toggle-visibility" type="button">Show</button>
+        </div>
+
+        <div class="strength-meter">
+          <div class="strength-bar-track">
+            <div id="strength-bar-fill" class="strength-bar-fill"></div>
+          </div>
+          <div class="strength-label-row">
+            <span id="strength-rating">—</span>
+            <span id="strength-score">0 / 100</span>
+          </div>
+        </div>
+
+        <div id="compliance-banner" class="banner banner-neutral">
+          Start typing to see whether this password meets the policy.
+        </div>
+
+        <div id="violations-block" class="hidden">
+          <h3>Violations</h3>
+          <ul id="violations-list"></ul>
+        </div>
+
+        <div id="suggestions-block" class="hidden">
+          <h3>Suggestions</h3>
+          <ul id="suggestions-list"></ul>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Policy configuration</h2>
+        <p class="hint">
+          These mirror the settings HR/IT can set for the real tool via a config file. Change them
+          to see how the same password is judged differently.
+        </p>
+
+        <div class="field-row">
+          <label for="min-length">Minimum length</label>
+          <input type="number" id="min-length" min="1" max="64" value="12" />
+        </div>
+
+        <div class="field-row">
+          <label for="max-length">Maximum length</label>
+          <input type="number" id="max-length" min="1" max="256" value="128" />
+        </div>
+
+        <fieldset class="checkbox-group">
+          <legend>Require character types</legend>
+          <label><input type="checkbox" id="require-upper" /> Uppercase letter (A–Z)</label>
+          <label><input type="checkbox" id="require-lower" /> Lowercase letter (a–z)</label>
+          <label><input type="checkbox" id="require-digit" /> Digit (0–9)</label>
+          <label><input type="checkbox" id="require-symbol" /> Symbol (!, #, %, …)</label>
+        </fieldset>
+
+        <div class="field-row checkbox-row">
+          <label><input type="checkbox" id="check-blocklist" checked /> Block common/weak passwords</label>
+        </div>
+
+        <div class="field-row checkbox-row">
+          <label><input type="checkbox" id="forbid-context" checked /> Forbid company/username words</label>
+        </div>
+
+        <div class="field-row">
+          <label for="context-words">Context words (comma-separated)</label>
+          <input
+            type="text"
+            id="context-words"
+            placeholder="e.g. acme, jsmith"
+            value="acme, jsmith"
+          />
+        </div>
+
+        <p class="footnote">
+          This demo re-implements the same rules as the open-source
+          <code>password-policy-analyzer</code> Python CLI, purely in-browser, for easy
+          walkthroughs. The full tool also supports TOML config files, JSON output for automation,
+          and an optional breach-database check — see the project README.
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

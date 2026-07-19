@@ -52,6 +52,8 @@ def _read_password(args: argparse.Namespace) -> str:
 def _analysis_to_dict(result: PasswordAnalysis) -> dict[str, Any]:
     return {
         "is_compliant": result.is_compliant,
+        "score": result.score,
+        "rating": result.rating,
         "violations": [
             {"code": v.code, "message": v.message, "help_text": v.help_text}
             for v in result.violations
@@ -61,6 +63,9 @@ def _analysis_to_dict(result: PasswordAnalysis) -> dict[str, Any]:
 
 
 def _print_text_result(result: PasswordAnalysis) -> None:
+    print(f"Strength: {result.rating} ({result.score}/100)")
+    print()
+
     if result.is_compliant:
         print("✅ Password is compliant with the policy.")
         return
@@ -81,6 +86,11 @@ def _print_text_result(result: PasswordAnalysis) -> None:
 
 
 def main() -> int:
+    # Ensure Unicode output (checkmarks, arrows) doesn't crash on legacy
+    # Windows console codepages (e.g. cp1252).
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
     parser = build_parser()
     args = parser.parse_args()
 

@@ -40,9 +40,14 @@ def analyze_password(
     # Suggestions (not hard failures)
     suggestions.extend(_general_suggestions(normalized, policy))
 
+    codes = {v.code for v in violations}
+    score = _score_password(normalized, codes)
+
     is_ok = len(violations) == 0
     return PasswordAnalysis(
         is_compliant=is_ok,
+        score=score,
+        rating=_rating_for_score(score),
         violations=tuple(violations),
         suggestions=tuple(suggestions),
     )
@@ -216,6 +221,48 @@ def _check_pwned(password: str, policy: PasswordPolicy) -> list[PolicyViolation]
         ]
 
     return []
+
+
+def _score_password(password: str, violation_codes: set[str]) -> int:
+    """
+    Heuristic 0-100 strength score, intentionally simple and transparent.
+    This is advisory (how strong is it beyond the bare minimum), separate
+    from `is_compliant` (does it satisfy the configured hard policy rules).
+    """
+    length_score = min(len(password), 20) * 3  # up to 60
+
+    classes = sum(
+        [
+            any(ch.isupper() for ch in password),
+            any(ch.islower() for ch in password),
+            any(ch.isdigit() for ch in password),
+            any(ch in _SYMBOLS for ch in password),
+        ]
+    )
+    variety_score = classes * 10  # up to 40
+
+    score = length_score + variety_score
+
+    if "length_too_short" in violation_codes:
+        score -= 15
+    if "contains_context_word" in violation_codes:
+        score -= 25
+    if "blocklisted_password" in violation_codes:
+        score -= 40
+    if "pwned_password" in violation_codes:
+        score -= 30
+
+    return max(0, min(100, score))
+
+
+def _rating_for_score(score: int) -> str:
+    if score >= 80:
+        return "Strong"
+    if score >= 60:
+        return "Good"
+    if score >= 40:
+        return "Fair"
+    return "Weak"
 
 
 def _general_suggestions(password: str, policy: PasswordPolicy) -> list[str]:

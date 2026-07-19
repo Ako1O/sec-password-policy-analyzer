@@ -1,6 +1,6 @@
 [project]
 name = "sec-password-policy-analyzer"
-version = "0.1.0"
+version = "0.2.0"
 description = "Educational tool to analyze passwords against configurable security policies."
 readme = "README.md"
 requires-python = ">=3.11"

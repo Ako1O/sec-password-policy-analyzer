@@ -40,6 +40,8 @@ class PolicyViolation:
 @dataclass(frozen=True)
 class PasswordAnalysis:
     is_compliant: bool
+    score: int = 0
+    rating: str = "Weak"
     violations: tuple[PolicyViolation, ...] = field(default_factory=tuple)
     suggestions: tuple[str, ...] = field(default_factory=tuple)
 
